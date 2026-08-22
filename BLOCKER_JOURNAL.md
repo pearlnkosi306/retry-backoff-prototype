@@ -2,7 +2,7 @@
 
 
 # Entry 1 —Ran Server- 22/8/2026 1:57 AM SAST
-**Attempted: to ran the server om file flaky_server.py**
+**Attempted: to ran the server on file flaky_server.py**
 
 **Result:server stated on port 5000, opening the forwarded port in the browserm produced 404 Not Found, the terminal showed Get/HTTP/101 request with a 404 responce**
 
@@ -13,15 +13,17 @@
 **Resolution / next step:investigating naive_call.py and observe its responce**
 
 # Entry 2- Naive Call Failure — 22/8/2026  SAST
-**Attempted:**
+**Attempted:ran python3 naive_call.py while flaky_server.py was running**
 
-**Result:**
+**Result:connection error, the program produced a python trace back with many lines referencing failed connection attempts, such as "ConnectionError" and "Connection Refused" and an inability to establish connectio**
 
-**Time spent:**
+**Main Observatons:the client is unable to establish a new connection**
 
-**Resources consulted:**
+**what i understand:naive_call.py attempted to make a connection, but was refused**
 
-**Resolution / next step:**
+**What i dont understand: why it failed** 
+
+**Resolution / next step: Investigate connection refused error, determine how the naive_call.py communicates with the flaky server**
 
 <!-- Copy the block above for each new entry. Commit after each one — the
      commit timestamps are part of what makes this journal count as evidence
