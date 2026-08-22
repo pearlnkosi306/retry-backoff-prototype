@@ -70,9 +70,16 @@
 
 **Fix: I implemented exponential backoff where the waiting time increases after each failed attempt:1 second → 2 seconds → 4 seconds. The client now allows up to four attempts**
 
-**Result:retries and exponential backoff worked successfully, helping client recover from temporary failures, I tested the program and it retried up to four times when necessary. When one of the attempts succeeded, the program stopped and returned the successful response. If all 4 attempts failed, it printed that all retry attempts had failed.**
+**Result:**Result:**  
+Retries and exponential backoff worked successfully. The client was able to recover from temporary failures by retrying the request and increasing the waiting time between attempts. I tested the program multiple times and the requests were successfully completed. When the maximum number of attempts was reached without success, the program reported that all retry attempts had failed.**
 
 **Resolution / next step: Test the complete retry, timeout and exponential backoff behaviour**
+
+# Entry 7- Final TESTS Results— 22/8/2026 5:52 AM SAST
+
+**Progess: Run results/ modications 6 times and observed changesand different possibilities**
+
+**Final Test Results:The complete retry system worked successfully. The client was able to retry failed requests using exponential backoff and eventually receive a successful response. When the maximum number of attempts was reached without success, the program correctly reported that the request had failed. This confirmed that the timeout, retry, and exponential backoff mechanisms were working together as intended.**
 <!-- Copy the block above for each new entry. Commit after each one — the
      commit timestamps are part of what makes this journal count as evidence
      of real, unaided work rather than a write-up done after the fact. -->
