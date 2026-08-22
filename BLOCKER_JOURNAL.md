@@ -75,11 +75,13 @@ Retries and exponential backoff worked successfully. The client was able to reco
 
 **Resolution / next step: Test the complete retry, timeout and exponential backoff behaviour**
 
-# Entry 7- Final TESTS Results— 22/8/2026 5:52 AM SAST
+# Entry 7 - Final Test Results — 22/08/2026 5:52 AM SAST
 
-**Progess: Run results/ modications 6 times and observed changesand different possibilities**
+**Progress: I ran the complete program 6 times and observed the different possible outcomes from the retry system.**
 
-**Final Test Results:The complete retry system worked successfully. The client was able to retry failed requests using exponential backoff and eventually receive a successful response. When the maximum number of attempts was reached without success, the program correctly reported that the request had failed. This confirmed that the timeout, retry, and exponential backoff mechanisms were working together as intended.**
+**Final Test Results: The complete retry system worked successfully. The client was able to retry failed requests using exponential backoff and eventually receive a successful response. When the maximum number of attempts was reached without success, the program correctly reported that the request had failed. This confirmed that the timeout, retry, and exponential backoff mechanisms were working together as intended.**
+
+**What I understood: I now understand how the three mechanisms work together. The timeout prevents the client from waiting too long, retry allows the client to try again after a temporary failure, and exponential backoff increases the waiting time between retries to give the server time to recover.**
 <!-- Copy the block above for each new entry. Commit after each one — the
      commit timestamps are part of what makes this journal count as evidence
      of real, unaided work rather than a write-up done after the fact. -->

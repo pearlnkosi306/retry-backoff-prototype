@@ -1,0 +1,17 @@
+[1mdiff --git a/BLOCKER_JOURNAL.md b/BLOCKER_JOURNAL.md[m
+[1mindex 3d05db8..7426e03 100644[m
+[1m--- a/BLOCKER_JOURNAL.md[m
+[1m+++ b/BLOCKER_JOURNAL.md[m
+[36m@@ -73,6 +73,12 @@[m
+ **Result:retries and exponential backoff worked successfully, helping client recover from temporary failures, I tested the program and it retried up to four times when necessary. When one of the attempts succeeded, the program stopped and returned the successful response. If all 4 attempts failed, it printed that all retry attempts had failed.**[m
+ [m
+ **Resolution / next step: Test the complete retry, timeout and exponential backoff behaviour**[m
+[32m+[m
+[32m+[m[32m# Entry 7- Final TESTS Results— 22/8/2026 5:52 AM SAST[m
+[32m+[m
+[32m+[m[32m**Progess: Run results/ modications 6 times and observed changesand different possibilities**[m
+[32m+[m
+[32m+[m[32m**Final Test Results:The complete retry system worked successfully. The client was able to retry failed requests using exponential backoff and eventually receive a successful response. When the maximum number of attempts was reached without success, the program correctly reported that the request had failed. This confirmed that the timeout, retry, and exponential backoff mechanisms were working together as intended.**[m
+ <!-- Copy the block above for each new entry. Commit after each one — the[m
+      commit timestamps are part of what makes this journal count as evidence[m
+      of real, unaided work rather than a write-up done after the fact. -->[m
