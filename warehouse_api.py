@@ -1,10 +1,3 @@
-"""
-Mock warehouse API - stands in for Northstar's real external inventory
-system, which this simulation doesn't give access to.
-
-This is scaffolding, not the Day 3 deliverable itself. It exists so you
-have something real to poll against.
-"""
 from flask import Flask, jsonify
 
 app = Flask(__name__)

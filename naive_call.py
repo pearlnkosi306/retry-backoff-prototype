@@ -1,7 +1,3 @@
-"""
-Step 1: a single, un-retried call. No retry logic here — that's the point.
-Run flaky_server.py first, then run this against it.
-"""
 import requests
 import time
 

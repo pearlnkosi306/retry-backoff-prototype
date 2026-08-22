@@ -1,12 +1,3 @@
-"""
-Flaky test server for Assignment 1 (retry/backoff prototype).
-
-This is scaffolding, not the assignment — you're not being evaluated on this
-file. It exists so you have something realistically unreliable to build
-retry logic against, the same way a real third-party API would occasionally
-time out or return a 503.
-"""
-
 from flask import Flask, jsonify
 import random
 import time

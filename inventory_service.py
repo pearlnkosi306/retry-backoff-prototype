@@ -1,11 +1,3 @@
-"""
-Day 3 - Inventory Sync Service (original, pre-pivot spec).
-
-Polls the warehouse API every 5 minutes, caches the result, and exposes
-a query endpoint the support tool can call for a fast, always-available
-answer to "is this in stock?" - without hitting the warehouse directly
-on every question.
-"""
 from flask import Flask, jsonify
 import threading
 import time
