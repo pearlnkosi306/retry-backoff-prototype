@@ -4,5 +4,5 @@ Run flaky_server.py first, then run this against it.
 """
 import requests
 
-response = requests.post("http://localhost:5000/submit")
+response = requests.post("http://localhost:5000/submit", timeout=1)
 print(response.status_code, response.text)

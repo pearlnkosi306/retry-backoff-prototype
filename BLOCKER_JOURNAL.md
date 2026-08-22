@@ -37,6 +37,21 @@
 **What i dont understand: how to resolve it** 
 
 **Resolution / next step: learn how to fix connection refused error**
+
+
+# Entry 4- Timeout investigation — 22/8/2026 5:09 AM SAST
+**Attempted:ran the call 8 times and connection refused, with slow responce, takes about 3 seconds**
+
+**Result:slow responce, theres a need for time out**
+
+**Main Observatons:asimulated failures deliberately pause for 2.5 seconds before returning HTTP 503**
+
+**Fix:I added a 1-second timeout to the requests.post() call:response = requests.post("http://localhost:5000/submit",timeout=1)**
+
+**Results:The timeout changes the behaviour of the client. A normal response that arrives within the one-second limit can still produce HTTP 200 or 503.** 
+
+**Resolution / next step: Investigate retry behaviour**
+
 <!-- Copy the block above for each new entry. Commit after each one — the
      commit timestamps are part of what makes this journal count as evidence
      of real, unaided work rather than a write-up done after the fact. -->
