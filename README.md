@@ -1,44 +1,63 @@
-# Retry/Backoff Prototype — Assignment 1
+# Northstar Inventory Sync — Day 3 (Original Spec)
 
-Solo mini-prototype for Days 1–2: learning retry/backoff, unaided. No teammate/instructor how-to help on the retry logic itself — that's the whole point of this one.
+Assignment 2, original pre-pivot build: poll a warehouse API every 5 minutes, cache the result, expose a query endpoint for the support tool.
 
-## What's in here
-- `flaky_server.py` — a small Flask server that fails on purpose, at random. This is your test target, not the thing you're learning. It's scaffolding, provided so you have something realistic to retry against.
-- `naive_call.py` — one plain, un-retried request. Run this first and watch it fail.
-- `retry_client.py` — empty. This is yours to build once you've researched retry/backoff on your own.
-- `BLOCKER_JOURNAL.md` — template only. Real entries, written as you go.
+## Architecture
+
+```
+Warehouse API (mock)          Inventory Service              Support Tool
+   :5001/inventory                :5002                       (you, testing)
+        |                           |                              |
+        |<---- poll every 5 min ----|                              |
+        |      (retry + backoff     |                              |
+        |       if it fails)        |                              |
+        |                           v                              |
+        |                     Stock Cache                          |
+        |                    (in-memory)                           |
+        |                           |                              |
+        |                           |---- GET /stock/<sku> ------->|
+        |                           +---- GET /stock ------------->|
+```
+
+## Files
+- `warehouse_api.py` — mock external warehouse system. Scaffolding, not the graded part — stands in for the real API this simulation doesn't give you access to.
+- `inventory_service.py` — **this is the actual Day 3 deliverable.** Polls the warehouse every 5 minutes, caches stock levels, retries with backoff if a poll fails, and serves the cache through its own endpoint.
+- `query_client.py` — a small script to test the query endpoint.
 - `requirements.txt` — flask + requests.
 
 ## Setup
 ```bash
-python3 -m venv venv
-source venv/bin/activate        # Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-## Step 1 — watch it fail
-Terminal 1:
-```bash
-python flaky_server.py
-```
-Terminal 2:
-```bash
-python naive_call.py
-```
-It fails about 80% of the time, so run it a few times if you happen to get a success. Whatever you actually see — status code, error message, how long it hung — write it up as Entry 1 in `BLOCKER_JOURNAL.md`, in your own words.
+## Running it (three terminals)
 
-## Step 2 — on your own from here
-Research retry/backoff however you'd normally research something unfamiliar, then build `retry_client.py` against the same `/submit` endpoint. Log real blockers in the journal as they happen, not reconstructed afterward.
-
-## Git setup
+**Terminal 1 — the mock warehouse:**
 ```bash
-git init
-git add .
-git commit -m "scaffold: flaky server, journal template"
-git remote add origin <your-repo-url>
-git push -u origin main
+python3 warehouse_api.py
 ```
-Commit again after each journal entry — don't batch them at the end. The timestamps are part of what makes this count as evidence of real, unaided work.
 
-## One rubric note
-Time-boxed and honest beats polished here — 40% of this grade is troubleshooting autonomy and documentation, not a shiny final script. Don't sink hours into making `retry_client.py` pretty.
+**Terminal 2 — the inventory service:**
+```bash
+python3 inventory_service.py
+```
+Watch this terminal — it prints a line every time it polls, so you can see it working instead of guessing.
+
+**Terminal 3 — query it:**
+```bash
+python3 query_client.py
+```
+Or directly: `curl http://localhost:5002/stock/SKU001`
+
+## Testing without waiting 5 real minutes
+`POLL_INTERVAL_SECONDS` at the top of `inventory_service.py` is set to 300 (5 minutes), matching the spec. While testing, it's fine to temporarily drop it to something like 10 so you're not sitting around — **set it back to 300 before treating this as done**, since the spec is explicit about the interval.
+
+## Simulating a stock change
+Both Flask apps run in debug mode, so they auto-restart on save. Edit a value in the `inventory` dict in `warehouse_api.py` and save — it restarts, and the next poll picks up the new number.
+
+## What's already handled
+- **Stale-but-available reads:** if a poll fails, the cache keeps its last good value instead of wiping — the support tool always gets *something*, even if it's a few minutes old.
+- **Poll failures:** each cycle retries up to 3 times with exponential backoff before giving up until the next scheduled poll.
+
+## Next step
+This is the "before" half of your Assignment 2 delta. Once this is running and you're comfortable with it, we build the Day 4 pivot on top of it — same repo, new files, old ones stay in place.
