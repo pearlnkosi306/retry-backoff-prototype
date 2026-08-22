@@ -12,7 +12,7 @@
 
 **Resolution / next step:investigating naive_call.py and observe its responce**
 
-# Entry 2- Naive Call Failure — 22/8/2026  SAST
+# Entry 2- Naive Call Failure — 22/8/2026 2:32AM SAST
 **Attempted:ran python3 naive_call.py while flaky_server.py was running**
 
 **Result:connection error, the program produced a python trace back with many lines referencing failed connection attempts, such as "ConnectionError" and "Connection Refused" and an inability to establish connectio**
@@ -25,6 +25,19 @@
 
 **Resolution / next step: Investigate connection refused error, determine how the naive_call.py communicates with the flaky server**
 
+
+# Entry 3- Connection Failed Error  — 22/8/2026 4:10 AM SAST
+**Attempted:the flask server is reacheable but the server defines the /submit as a {POST} endpoint, not as a root(/) endpoint**
+
+**Result:connection error, Evidence: flaky_server.py defines @app.route('/submit', methods=['POST']).**
+
+**Main Observatons:at the time client was executed, no server process was listening on local port:5000 hence is unable to establish a connection**
+
+**what i understand:naive_call.py attempted to make a connection, but was refused. After flaky_server.py was started, Flask reported that it was running on http://127.0.0.1:5000. The server therefore started successfully and was listening on port 5000.**
+
+**What i dont understand: how to resolve it** 
+
+**Resolution / next step: learn how to fix connection refused error**
 <!-- Copy the block above for each new entry. Commit after each one — the
      commit timestamps are part of what makes this journal count as evidence
      of real, unaided work rather than a write-up done after the fact. -->
