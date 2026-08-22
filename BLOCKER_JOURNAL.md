@@ -61,6 +61,18 @@
 
 **Resolution / next step: Implement a delay between retry attempts using exponential backoff.**
 
+
+# Entry 5- constant vd exponential backoff investigation for recovery before next attempt— 22/8/2026 5:40 AM SAST
+
+**Attempted:After I implemented retries, I noticed that the program would retry immediately when the server returned a 503 error. Although the retry worked and the request could eventually become successful, I realised that immediately sending another request to a server that is already failing may not be a good approach.**
+
+**What I understood:delay only happens if the first attemot fails, and helps give the server some time to recover, instead of immediately sending another request**
+
+**Fix: I implemented exponential backoff where the waiting time increases after each failed attempt:1 second → 2 seconds → 4 seconds. The client now allows up to four attempts**
+
+**Result:retries and exponential backoff worked successfully, helping client recover from temporary failures, I tested the program and it retried up to four times when necessary. When one of the attempts succeeded, the program stopped and returned the successful response. If all 4 attempts failed, it printed that all retry attempts had failed.**
+
+**Resolution / next step: Test the complete retry, timeout and exponential backoff behaviour**
 <!-- Copy the block above for each new entry. Commit after each one — the
      commit timestamps are part of what makes this journal count as evidence
      of real, unaided work rather than a write-up done after the fact. -->
