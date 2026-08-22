@@ -52,6 +52,15 @@
 
 **Resolution / next step: Investigate retry behaviour**
 
+# Entry 5- Retry investigation — 22/8/2026 5:25 AM SAST
+**Attempted:the client still stopped after a temporary HTTP 503 or timeout. Instead of allowing the client to stop after the first failure, I implemented a maximum of three attempts**
+
+**Fix: I changed the client to retry when it receives HTTP 503, encounters a timeout, or encounters a connection error. The client stops immediately when it receives HTTP 200, until status reflects 'ok', message says ; accepted**
+
+**Result:retries until accepted,, helping client recover from temporary failures**
+
+**Resolution / next step: Implement a delay between retry attempts using exponential backoff.**
+
 <!-- Copy the block above for each new entry. Commit after each one — the
      commit timestamps are part of what makes this journal count as evidence
      of real, unaided work rather than a write-up done after the fact. -->
