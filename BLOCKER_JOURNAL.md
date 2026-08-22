@@ -62,7 +62,7 @@
 **Resolution / next step: Implement a delay between retry attempts using exponential backoff.**
 
 
-# Entry 5- constant vd exponential backoff investigation for recovery before next attempt— 22/8/2026 5:40 AM SAST
+# Entry 6- constant vd exponential backoff investigation for recovery before next attempt— 22/8/2026 5:40 AM SAST
 
 **Attempted:After I implemented retries, I noticed that the program would retry immediately when the server returned a 503 error. Although the retry worked and the request could eventually become successful, I realised that immediately sending another request to a server that is already failing may not be a good approach.**
 
