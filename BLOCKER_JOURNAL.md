@@ -81,6 +81,15 @@
 **Final Test Results: The complete retry system worked successfully. The client was able to retry failed requests using exponential backoff and eventually receive a successful response. When the maximum number of attempts was reached without success, the program correctly reported that the request had failed. This confirmed that the timeout, retry, and exponential backoff mechanisms were working together as intended.**
 
 **What I understood: I now understand how the three mechanisms work together. The timeout prevents the client from waiting too long, retry allows the client to try again after a temporary failure, and exponential backoff increases the waiting time between retries to give the server time to recover.**
-<!-- Copy the block above for each new entry. Commit after each one — the
-     commit timestamps are part of what makes this journal count as evidence
-     of real, unaided work rather than a write-up done after the fact. -->
+# Entry 8 — Warehouse API Setup — 22/08/2026 10:16 AM SAST
+
+**Problem:** I needed to create and run the warehouse API so that the inventory service could poll it every 5 minutes. I was not sure at first if the warehouse API was working correctly.
+
+**What I tried:** I started `warehouse_api.py` and checked the `/inventory` endpoint.
+
+**Result:** The warehouse API started successfully on port 5001. The `/inventory` endpoint returned the inventory data successfully, including SKU001 = 42, SKU002 = 0, SKU003 = 17, SKU004 = 8 and SKU005 = 103.
+
+**What I learned:** I confirmed that the warehouse API was working and that the inventory service had a real endpoint to poll. The 404 on `/` was not a problem because the endpoint I needed was `/inventory`.
+
+**Resolution / next step:** Continue with the inventory service and use the warehouse `/inventory` endpoint as the source for the cache.
+
